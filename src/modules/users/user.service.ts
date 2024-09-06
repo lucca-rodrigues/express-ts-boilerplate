@@ -1,0 +1,39 @@
+import { Request, Response } from "express";
+import { CreateCustomerDto } from "modules/customers/dto/createCustomer.dto";
+import { IContractUseCases } from "infra/contracts";
+
+export default class UserServices {
+  private userUseCases: IContractUseCases;
+
+  constructor(userUseCases: IContractUseCases) {
+    this.userUseCases = userUseCases;
+  }
+
+  async getAll(req: Request, res: Response) {
+    const response = await this.userUseCases.getAll(req?.query);
+    return res.json(response);
+  }
+
+  async getOne(req: Request, res: Response) {
+    const response = await this.userUseCases.getOne(req?.params?.id);
+    return res.json(response);
+  }
+
+  async create(req: Request, res: Response) {
+    const data = req.body as CreateCustomerDto;
+    const response = await this.userUseCases.create(data);
+    return res.json(response);
+  }
+
+  async update(req: Request, res: Response) {
+    const data = req.body as CreateCustomerDto;
+    const userId = req.params.id;
+    const response = await this.userUseCases.update(userId, data);
+    return res.json(response);
+  }
+
+  async delete(req: Request, res: Response) {
+    const response = await this.userUseCases.delete(req?.params?.id);
+    return res.json(response);
+  }
+}
