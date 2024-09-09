@@ -1,4 +1,4 @@
-export interface IContractUseCases {
+export default interface IContractUseCases {
   getAll(query?: any): Promise<any>;
   getOne(id: string): Promise<any>;
   create(data: any): Promise<any>;

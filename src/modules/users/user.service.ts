@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { CreateCustomerDto } from "modules/customers/dto/createCustomer.dto";
-import { IContractUseCases } from "infra/contracts";
+import IContractUseCases from "infra/contracts";
+import { UserDto } from "./dto/user.dto";
 
 export default class UserServices {
   private userUseCases: IContractUseCases;
@@ -20,13 +20,13 @@ export default class UserServices {
   }
 
   async create(req: Request, res: Response) {
-    const data = req.body as CreateCustomerDto;
+    const data = req.body as UserDto;
     const response = await this.userUseCases.create(data);
     return res.json(response);
   }
 
   async update(req: Request, res: Response) {
-    const data = req.body as CreateCustomerDto;
+    const data = req.body as UserDto;
     const userId = req.params.id;
     const response = await this.userUseCases.update(userId, data);
     return res.json(response);

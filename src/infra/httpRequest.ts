@@ -8,8 +8,8 @@ export default class HttpRequest {
   private bearerToken: string | undefined;
 
   constructor() {
-    this.baseUrl = process.env.GATEWAY_BASE_URL;
-    this.bearerToken = process.env.API_TOKEN;
+    this.baseUrl = process.env.EXTERNAL_API_URL;
+    this.bearerToken = process.env.EXTERNAL_API_TOKEN;
   }
 
   private api(): AxiosInstance {

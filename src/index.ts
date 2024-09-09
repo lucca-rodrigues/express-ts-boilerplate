@@ -2,7 +2,6 @@ import cors from "cors";
 import { AppDataSource } from "data-source";
 import dotenv from "dotenv";
 import express, { Express } from "express";
-import customerRouter from "modules/customers/customer.controller";
 import userRouter from "modules/users/user.controller";
 
 dotenv.config();
@@ -14,7 +13,7 @@ app.use(
   })
 );
 
-app.use("/api", customerRouter);
+// app.use("/api", customerRouter);
 app.use("/api", userRouter);
 
 app.use("/", (req, res) => {
