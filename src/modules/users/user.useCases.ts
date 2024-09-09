@@ -12,7 +12,7 @@ export default class UserUseCases {
   //   return response;
   // }
 
-  async getAll(query = {}) {
+  async getAll(query = {}): Promise<User[]> {
     const response = await userRepository.find();
     return response;
   }
@@ -22,12 +22,13 @@ export default class UserUseCases {
     return response;
   }
 
-  async create(data: any) {
-    const response = await httpRequest.post("/customers", data);
+  async create(data: Partial<User>): Promise<User> {
+    console.log("data", data);
+    const response = await userRepository.save(data);
     return response;
   }
 
-  async update(id: string, data: any) {
+  async update(id: string, data: User) {
     const response = await httpRequest.put(`/customers/${id}`, data);
     return response;
   }

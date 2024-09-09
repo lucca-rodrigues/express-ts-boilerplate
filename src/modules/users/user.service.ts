@@ -3,9 +3,9 @@ import IContractUseCases from "infra/contracts";
 import { UserDto } from "./dto/user.dto";
 
 export default class UserServices {
-  private userUseCases: IContractUseCases;
+  private userUseCases: IContractUseCases<UserDto>;
 
-  constructor(userUseCases: IContractUseCases) {
+  constructor(userUseCases: IContractUseCases<UserDto>) {
     this.userUseCases = userUseCases;
   }
 

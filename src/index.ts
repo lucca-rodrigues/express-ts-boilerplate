@@ -21,6 +21,7 @@ app.use("/", (req, res) => {
 
 AppDataSource.initialize()
   .then(async () => {
+    console.log("Data source has been initialized!");
     const PORT = process.env.PORT || 3333;
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);

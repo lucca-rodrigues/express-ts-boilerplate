@@ -26,7 +26,7 @@ const dbSettings: { [key: string]: any } = {
 export const AppDataSource = new DataSource({
   synchronize: false,
   logging: false,
-  entities: ["src/modules/*.entity.ts"],
+  entities: ["src/modules/**/*.entity.ts"],
   migrations: ["src/infra/database/migrations/*.ts"],
   subscribers: [],
   ...dbSettings[process.env.NODE_ENV ?? "test"],
