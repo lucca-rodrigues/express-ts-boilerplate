@@ -1,11 +1,19 @@
 import { httpRequest } from "infra";
+import { Repository, getRepository } from "typeorm";
+import { User } from "./entity/User.entity";
+import { userRepository } from "infra/repository";
 
 export default class UserUseCases {
   constructor() {}
 
+  // async getAll(query = {}) {
+  //   const queryString = new URLSearchParams(query).toString();
+  //   const response = await httpRequest.get(`/external-api?${queryString}`);
+  //   return response;
+  // }
+
   async getAll(query = {}) {
-    const queryString = new URLSearchParams(query).toString();
-    const response = await httpRequest.get(`/customers?${queryString}`);
+    const response = await userRepository.find();
     return response;
   }
 

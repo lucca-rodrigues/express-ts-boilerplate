@@ -13,7 +13,6 @@ app.use(
   })
 );
 
-// app.use("/api", customerRouter);
 app.use("/api", userRouter);
 
 app.use("/", (req, res) => {
