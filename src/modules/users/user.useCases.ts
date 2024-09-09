@@ -1,5 +1,4 @@
 import { httpRequest } from "infra";
-import { Repository, getRepository } from "typeorm";
 import { User } from "./entity/User.entity";
 import { userRepository } from "infra/repository";
 
@@ -23,7 +22,6 @@ export default class UserUseCases {
   }
 
   async create(data: Partial<User>): Promise<User> {
-    console.log("data", data);
     const response = await userRepository.save(data);
     return response;
   }
