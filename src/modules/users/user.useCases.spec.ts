@@ -29,8 +29,8 @@ describe("UserUseCases", () => {
 
   it("should be return all created users", async () => {
     const users = [
-      { id: "uuid-1", name: faker.faker.person.fullName() },
-      { id: "uuid-2", name: faker.faker.person.fullName() },
+      { id: "generated-uuid", name: faker.faker.person.fullName() },
+      { id: "generated-uuid-2", name: faker.faker.person.fullName() },
     ];
     (userRepository.find as jest.Mock).mockResolvedValue(users);
 
