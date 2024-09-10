@@ -1,18 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { userRepository } from "infra/repository";
 import UserUseCases from "./user.useCases";
-import { faker } from "@faker-js/faker";
+let faker: any;
 
 jest.mock("infra/repository");
 
 describe("UserUseCases", () => {
   let userUseCases: UserUseCases;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     userUseCases = new UserUseCases();
+    faker = await import("@faker-js/faker");
   });
 
   it("should be create a user and return it", async () => {
-    const userData = { name: faker.person.fullName() };
+    const userData = { name: faker.faker.person.fullName() };
     const savedUser = { id: "uuid-generated", ...userData };
     (userRepository.save as jest.Mock).mockResolvedValue(savedUser);
 
@@ -27,8 +29,8 @@ describe("UserUseCases", () => {
 
   it("should be return all created users", async () => {
     const users = [
-      { id: "uuid-1", name: faker.person.fullName() },
-      { id: "uuid-2", name: faker.person.fullName() },
+      { id: "uuid-1", name: faker.faker.person.fullName() }, // Atualizar para usar faker
+      { id: "uuid-2", name: faker.faker.person.fullName() }, // Atualizar para usar faker
     ];
     (userRepository.find as jest.Mock).mockResolvedValue(users);
 
