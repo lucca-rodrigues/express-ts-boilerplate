@@ -10,4 +10,7 @@ module.exports = {
   },
   testMatch: ["**/?(*.)+(spec|test).ts"],
   moduleDirectories: ["node_modules", "src"],
+  collectCoverage: true,
+  coverageDirectory: "coverage",
+  coverageReporters: ["text", "lcov"],
 };
