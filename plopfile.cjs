@@ -39,6 +39,18 @@ module.exports = function (plop) {
         path: "src/modules/{{camelCase moduleName}}/{{camelCase moduleName}}.service.ts",
         templateFile: "src/infra/templates/service/index.hbs",
       },
+      {
+        type: "modify",
+        path: "src/index.ts",
+        pattern: /dotenv\.config\(\);/,
+        template: `import {{camelCase moduleName}}Router from "modules/{{camelCase moduleName}}/{{camelCase moduleName}}.controller";\ndotenv.config();`,
+      },
+      {
+        type: "modify",
+        path: "src/index.ts",
+        pattern: /app\.use\("\/api", userRouter\);/,
+        template: `app.use("/api", userRouter);\napp.use("/api/{{kebabCase moduleName}}", {{camelCase moduleName}}Router);`,
+      }
     ],
   });
 };

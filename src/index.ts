@@ -3,7 +3,6 @@ import { AppDataSource } from "data-source";
 import dotenv from "dotenv";
 import express, { Express } from "express";
 import userRouter from "modules/users/user.controller";
-
 dotenv.config();
 const app: Express = express();
 app.use(express.json());
