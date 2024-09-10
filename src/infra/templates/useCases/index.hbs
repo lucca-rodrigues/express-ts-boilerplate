@@ -1,0 +1,34 @@
+{{!-- UserUseCaseTemplate.hbs --}}
+
+import { httpRequest } from "infra";
+import { {{entity}} } from "./entity/{{entityName}}.entity";
+import { {{repository}} } from "infra/repository"; 
+
+export default class {{pascalCase moduleName}}UseCases {
+    constructor() {}
+
+    async getAll(query = {}): Promise<{{returnType}}> {
+        const response = await {{repository}}.find();
+        return response;
+    }
+
+    async getOne(id: string): Promise<{{returnType}}> {
+        const response = await httpRequest.get(`/customers/${id}`);
+        return response;
+    }
+
+    async create(data: Partial<{{entity}}>): Promise<{{returnType}}> {
+        const response = await {{repository}}.save(data);
+        return response;
+    }
+
+    async update(id: string, data: {{entity}}): Promise<{{returnType}}> {
+        const response = await httpRequest.put(`/customers/${id}`, data);
+        return response;
+    }
+
+    async delete(id: string): Promise<void> {
+        const response = await httpRequest.delete(`/customers/${id}`);
+        return response;
+    }
+}

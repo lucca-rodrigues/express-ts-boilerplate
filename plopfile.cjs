@@ -49,6 +49,16 @@ module.exports = function (plop) {
             "{{pascalCase moduleName}}"
           )});\n`,
       },
+      {
+        type: "add",
+        path: "src/modules/{{camelCase moduleName}}/{{camelCase moduleName}}.controller.ts",
+        templateFile: "src/infra/templates/controller/index.hbs",
+      },
+      {
+        type: "add",
+        path: "src/modules/{{camelCase moduleName}}/{{camelCase moduleName}}.service.ts",
+        templateFile: "src/infra/templates/service/index.hbs",
+      },
     ],
   });
 };

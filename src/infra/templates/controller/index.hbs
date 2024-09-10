@@ -1,0 +1,17 @@
+import { Router } from "express";
+import { validator } from "infra";
+import {{moduleName}}Service from "./{{moduleName}}.service";
+import {{useCasesName}} from "./{{useCasesName}}";
+import { {{dtoName}} } from "./dto/{{dtoName}}"; 
+
+const controller = Router();
+const {{moduleName}}ServiceInstance = new {{moduleName}}Service();
+const {{useCasesName}}Instance = new {{useCasesName}}();
+
+controller.get("/", (req, res) => {{moduleName}}ServiceInstance.getAll(req, res));
+controller.get("/:id", (req, res) => {{moduleName}}ServiceInstance.getOne(req, res));
+controller.post("/", validator(), (req, res) => {{moduleName}}ServiceInstance.create(req, res));
+controller.put("/:id", validator(), (req, res) => {{moduleName}}ServiceInstance.update(req, res));
+controller.delete("/:id", (req, res) => {{moduleName}}ServiceInstance.delete(req, res));
+
+export default controller;

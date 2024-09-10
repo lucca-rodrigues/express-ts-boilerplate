@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 const dbSettings: { [key: string]: any } = {
