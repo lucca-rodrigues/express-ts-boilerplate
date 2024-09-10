@@ -4,15 +4,15 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export default class HttpRequest {
-  private baseUrl: string | undefined;
+  private baseUrl: string;
   private bearerToken: string | undefined;
 
-  constructor() {
-    this.baseUrl = process.env.EXTERNAL_API_URL;
+  constructor(baseUrl?: string) {
+    this.baseUrl = baseUrl || process.env.EXTERNAL_API_URL || "";
     this.bearerToken = process.env.EXTERNAL_API_TOKEN;
   }
 
-  private api(): AxiosInstance {
+  public api(): AxiosInstance {
     return axios.create({
       baseURL: this.baseUrl,
       headers: {
@@ -28,7 +28,10 @@ export default class HttpRequest {
   }
 
   async post<T, R>(path: string, data: T): Promise<R | undefined> {
-    const response: AxiosResponse<R> = await this.api().post<R>(`${path}`, data);
+    const response: AxiosResponse<R> = await this.api().post<R>(
+      `${path}`,
+      data
+    );
     return response?.data;
   }
 
@@ -38,7 +41,10 @@ export default class HttpRequest {
   }
 
   async patch<T, R>(path: string, data: T): Promise<R | undefined> {
-    const response: AxiosResponse<R> = await this.api().patch<R>(`${path}`, data);
+    const response: AxiosResponse<R> = await this.api().patch<R>(
+      `${path}`,
+      data
+    );
     return response?.data;
   }
 
