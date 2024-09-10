@@ -34,6 +34,6 @@ export default class UserServices {
 
   async delete(req: Request, res: Response) {
     const response = await this.userUseCases.delete(req?.params?.id);
-    return res.json(response);
+    return res.status(204).json(response);
   }
 }
