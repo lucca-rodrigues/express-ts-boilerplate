@@ -1,16 +1,4 @@
 module.exports = function (plop) {
-  const capitalize = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
-
-  const camelCase = (string) => {
-    return string
-      .replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, (match, index) =>
-        index === 0 ? match.toLowerCase() : match.toUpperCase()
-      )
-      .replace(/\s+/g, "");
-  };
-
   plop.setGenerator("module", {
     description: "Criar um novo módulo",
     prompts: [
@@ -21,11 +9,6 @@ module.exports = function (plop) {
       },
     ],
     actions: [
-      // {
-      //   type: "shell",
-      //   command:
-      //     "npm run typeorm migration:create -d src/infra/database/migrations {{lowerCase moduleName}}",
-      // },
       {
         type: "add",
         path: "src/modules/{{lowerCase moduleName}}/entity/{{camelCase moduleName}}.entity.ts",
@@ -39,15 +22,12 @@ module.exports = function (plop) {
       {
         type: "append",
         path: "src/infra/repository/index.ts",
-        template:
-          `import { ${capitalize(
-            "{{pascalCase moduleName}}"
-          )} } from "modules/{{lowerCase moduleName}}/entity/{{camelCase moduleName}}.entity";\n` +
-          `export const ${camelCase(
-            "{{moduleName}}"
-          )}Repository = AppDataSource.getRepository(${capitalize(
-            "{{pascalCase moduleName}}"
-          )});\n`,
+        templateFile: "src/infra/templates/repository/index.hbs",
+      },
+      {
+        type: "add",
+        path: "src/modules/{{camelCase moduleName}}/{{camelCase moduleName}}.useCases.ts",
+        templateFile: "src/infra/templates/useCases/index.hbs",
       },
       {
         type: "add",

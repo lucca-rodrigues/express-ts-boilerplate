@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import IContractUseCases from "infra/contracts";
-import { {{pascalCase moduleName}}Dto } from "modules/{{moduleName}}/dto/{{moduleName}}.dto";
+import { SampleDto } from "modules/sample/dto/sample.dto";
 
-export default class {{pascalCase moduleName}}Service {
-  private contractUseCases: IContractUseCases<{{pascalCase moduleName}}Dto>;
+export default class SampleService {
+  private contractUseCases: IContractUseCases<SampleDto>;
 
-  constructor(contractUseCases: IContractUseCases<{{pascalCase moduleName}}Dto>) {
+  constructor(contractUseCases: IContractUseCases<SampleDto>) {
     this.contractUseCases = contractUseCases;
   }
 
@@ -20,13 +20,13 @@ export default class {{pascalCase moduleName}}Service {
   }
 
   async create(req: Request, res: Response) {
-    const data = req.body as {{pascalCase moduleName}}Dto;
+    const data = req.body as SampleDto;
     const response = await this.contractUseCases.create(data);
     return res.json(response);
   }
 
   async update(req: Request, res: Response) {
-    const data = req.body as {{pascalCase moduleName}}Dto;
+    const data = req.body as SampleDto;
     const userId = req.params.id;
     const response = await this.contractUseCases.update(userId, data);
     return res.json(response);

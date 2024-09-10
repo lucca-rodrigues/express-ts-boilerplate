@@ -1,48 +1,48 @@
-import { {{entity}} } from "modules/{{moduleName}}/entity/{{moduleName}}.entity";
-import { {{moduleName}}Repository } from "infra/repository";
+import {  } from "modules/sample/entity/sample.entity";
+import { sampleRepository } from "infra/repository";
 import IContractUseCases from "infra/contracts";
 import { ErrorHandler } from "infra/errorHandlers";
 
-export default class {{pascalCase moduleName}}UseCases implements IContractUseCases<{{entity}}> {
+export default class SampleUseCases implements IContractUseCases<> {
     constructor() {}
 
-    async getAll(query = {}): Promise<{{returnType}}> {
+    async getAll(query = {}): Promise<> {
         try {
-            const response = await {{moduleName}}Repository.find();
+            const response = await sampleRepository.find();
             return response;
         } catch (error: unknown) {
             throw ErrorHandler.InternalServerError(error);
         }
     }
 
-    async getOne(id: string): Promise<{{returnType}} | void> {
+    async getOne(id: string): Promise< | void> {
         try {
-            const response = await {{moduleName}}Repository.findOneBy({ id });
+            const response = await sampleRepository.findOneBy({ id });
             if (!response) {
-                throw ErrorHandler.NotFound("{{entity}} not found");
+                throw ErrorHandler.NotFound(" not found");
             }
-            return response as {{entity}};
+            return response as ;
         } catch (error: unknown) {
             throw ErrorHandler.InternalServerError(error);
         }
     }
 
-    async create(data: Partial<{{entity}}>): Promise<{{returnType}}> {
+    async create(data: Partial<>): Promise<> {
         try {
-            const response = await {{moduleName}}Repository.save(data);
+            const response = await sampleRepository.save(data);
             return response;
         } catch (error: unknown) {
             throw ErrorHandler.InternalServerError(error);
         }
     }
 
-    async update(id: string, data: Partial<{{entity}}>): Promise<{{returnType}} | void> {
+    async update(id: string, data: Partial<>): Promise< | void> {
         try {
             const entity = await this.getOne(id);
             if (!entity) {
-                throw ErrorHandler.NotFound("{{entity}} not found");
+                throw ErrorHandler.NotFound(" not found");
             }
-            await {{moduleName}}Repository.update(id, data);
+            await sampleRepository.update(id, data);
             return { ...entity, ...data };
         } catch (error: unknown) {
             throw ErrorHandler.InternalServerError(error);
@@ -53,9 +53,9 @@ export default class {{pascalCase moduleName}}UseCases implements IContractUseCa
         try {
             const entity = await this.getOne(id);
             if (!entity) {
-                throw ErrorHandler.NotFound("{{entity}} not found");
+                throw ErrorHandler.NotFound(" not found");
             }
-            await {{moduleName}}Repository.delete(id);
+            await sampleRepository.delete(id);
         } catch (error: unknown) {
             throw ErrorHandler.InternalServerError(error);
         }

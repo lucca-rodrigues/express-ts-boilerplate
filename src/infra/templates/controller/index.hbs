@@ -1,17 +1,18 @@
 import { Router } from "express";
 import { validator } from "infra";
-import {{moduleName}}Service from "./{{moduleName}}.service";
-import {{useCasesName}} from "./{{useCasesName}}";
-import { {{dtoName}} } from "./dto/{{dtoName}}"; 
+
+import {{pascalCase moduleName}}Service from "modules/{{moduleName}}/{{moduleName}}.service";
+import {{pascalCase moduleName}}UseCases from "modules/{{moduleName}}/{{moduleName}}.useCases"; 
+import { {{pascalCase moduleName}}Dto } from "modules/{{moduleName}}/dto/{{moduleName}}.dto";
 
 const controller = Router();
-const {{moduleName}}ServiceInstance = new {{moduleName}}Service();
-const {{useCasesName}}Instance = new {{useCasesName}}();
+const {{moduleName}}UseCases = new {{pascalCase moduleName}}UseCases(); 
+const {{moduleName}}Service = new {{pascalCase moduleName}}Service({{moduleName}}UseCases);
 
-controller.get("/", (req, res) => {{moduleName}}ServiceInstance.getAll(req, res));
-controller.get("/:id", (req, res) => {{moduleName}}ServiceInstance.getOne(req, res));
-controller.post("/", validator(), (req, res) => {{moduleName}}ServiceInstance.create(req, res));
-controller.put("/:id", validator(), (req, res) => {{moduleName}}ServiceInstance.update(req, res));
-controller.delete("/:id", (req, res) => {{moduleName}}ServiceInstance.delete(req, res));
+controller.get("/", (req, res) => {{moduleName}}Service.getAll(req, res));
+controller.get("/:id", (req, res) => {{moduleName}}Service.getOne(req, res));
+controller.post("/", validator({{pascalCase moduleName}}Dto), (req, res) => {{moduleName}}Service.create(req, res));
+controller.put("/:id", validator({{pascalCase moduleName}}Dto), (req, res) => {{moduleName}}Service.update(req, res));
+controller.delete("/:id", (req, res) => {{moduleName}}Service.delete(req, res));
 
 export default controller;

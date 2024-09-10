@@ -6,7 +6,9 @@ export function validator(dto: any) {
   return async (req: Request, res: Response, next: any) => {
     try {
       const data = plainToClass(dto, req.body);
-      const errors = await validate(data, { validationError: { target: false, value: true } } as ValidatorOptions);
+      const errors = await validate(data, {
+        validationError: { target: false, value: true },
+      } as ValidatorOptions);
 
       if (errors.length > 0) {
         return res.status(400).json({ errors });

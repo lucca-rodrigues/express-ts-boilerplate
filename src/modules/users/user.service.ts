@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import IContractUseCases from "infra/contracts";
-import { UserDto } from "./dto/user.dto";
+import { UserDto } from "modules/users/dto/user.dto";
 
 export default class UserServices {
   private userUseCases: IContractUseCases<UserDto>;

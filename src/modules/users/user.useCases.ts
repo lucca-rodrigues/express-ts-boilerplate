@@ -1,39 +1,64 @@
-import { httpRequest } from "infra";
 import { User } from "./entity/user.entity";
 import { userRepository } from "infra/repository";
+import IContractUseCases from "infra/contracts";
+import { ErrorHandler } from "infra/errorHandlers";
 
-export default class UserUseCases {
+export default class UserUseCases implements IContractUseCases<User> {
   constructor() {}
 
-  // async getAll(query = {}) {
-  //   const queryString = new URLSearchParams(query).toString();
-  //   const response = await httpRequest.get(`/external-api?${queryString}`);
-  //   return response;
-  // }
-
   async getAll(query = {}): Promise<User[]> {
-    const response = await userRepository.find();
-    return response;
+    try {
+      // const queryString = new URLSearchParams(query).toString();
+      const response = await userRepository.find();
+      return response;
+    } catch (error: unknown) {
+      throw ErrorHandler.InternalServerError(error);
+    }
   }
 
-  async getOne(id: string) {
-    const response = await httpRequest.get(`/customers/${id}`);
-    return response;
+  async getOne(id: string): Promise<User | void> {
+    try {
+      const response = await userRepository.findOneBy({ id });
+      if (!response) {
+        throw ErrorHandler.NotFound("User not found");
+      }
+      return response as User;
+    } catch (error: unknown) {
+      throw ErrorHandler.InternalServerError(error);
+    }
   }
 
   async create(data: Partial<User>): Promise<User> {
-    const response = await userRepository.save(data);
-    return response;
+    try {
+      const response = await userRepository.save(data);
+      return response;
+    } catch (error: unknown) {
+      throw ErrorHandler.InternalServerError(error);
+    }
   }
 
-  async update(id: string, data: User) {
-    const response = await httpRequest.put(`/customers/${id}`, data);
-    return response;
+  async update(id: string, data: Partial<User>): Promise<User | void> {
+    try {
+      const user = await this.getOne(id);
+      if (!user) {
+        throw ErrorHandler.NotFound("User not found");
+      }
+      await userRepository.update(id, data);
+      return { ...user, ...data };
+    } catch (error: unknown) {
+      throw ErrorHandler.InternalServerError(error);
+    }
   }
 
-  async delete(id: string) {
-    const response = await httpRequest.delete(`/customers/${id}`);
-    return response;
+  async delete(id: string): Promise<void> {
+    try {
+      const user = await this.getOne(id);
+      if (!user) {
+        throw ErrorHandler.NotFound("User not found");
+      }
+      await userRepository.delete(id);
+    } catch (error: unknown) {
+      throw ErrorHandler.InternalServerError(error);
+    }
   }
 }
-
