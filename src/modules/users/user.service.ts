@@ -29,7 +29,7 @@ export default class UserServices {
     const data = req.body as UserDto;
     const userId = req.params.id;
     const response = await this.userUseCases.update(userId, data);
-    return res.json(response);
+    return res.status(200).json(response);
   }
 
   async delete(req: Request, res: Response) {
