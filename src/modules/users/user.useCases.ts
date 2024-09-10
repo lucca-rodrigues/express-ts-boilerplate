@@ -1,5 +1,5 @@
 import { httpRequest } from "infra";
-import { User } from "./entity/User.entity";
+import { User } from "./entity/user.entity";
 import { userRepository } from "infra/repository";
 
 export default class UserUseCases {
@@ -36,3 +36,4 @@ export default class UserUseCases {
     return response;
   }
 }
+
