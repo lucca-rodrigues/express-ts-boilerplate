@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { userRepository } from "infra/repository";
-import UserUseCases from "./user.useCases";
+import UserUseCases from "modules/users/user.useCases";
 let faker: any;
 
 jest.mock("infra/repository");

@@ -12,11 +12,11 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "prepare": "husky",
     "commit": "npm test && git add . && npx git-cz",
-    "test": "npm run test:e2e:setup && jest",
+    "test": "npm run test:e2e:setup && jest && rm -f src/infra/database/data.db",
     "test:watch": "jest --watch",
     "test:e2e": "jest --config jest.e2e.config.js",
     "gen": "plop",
-    "test:e2e:setup": "rm -f src/infra/database/data.db && npm run typeorm -- -d src/data-source migration:run"
+    "test:e2e:setup": "npm run typeorm -- -d src/data-source migration:run"
   },
   "keywords": [],
   "author": "",
