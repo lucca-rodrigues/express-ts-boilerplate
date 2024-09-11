@@ -6,10 +6,9 @@ import { ErrorHandler } from "infra/errorHandlers";
 export default class UserUseCases implements IContractUseCases<User> {
   constructor() {}
 
-  async getAll(query = {}): Promise<User[]> {
+  async getAll(): Promise<User[]> {
     try {
-      const response = await userRepository.find();
-      return response;
+      return await userRepository.find();
     } catch (error: unknown) {
       throw ErrorHandler.InternalServerError(error);
     }
@@ -17,11 +16,11 @@ export default class UserUseCases implements IContractUseCases<User> {
 
   async getOne(id: string): Promise<User> {
     try {
-      const response = await userRepository.findOneBy({ id });
-      if (!response) {
+      const user = await userRepository.findOneBy({ id });
+      if (!user) {
         throw ErrorHandler.NotFound("User not found");
       }
-      return response;
+      return user;
     } catch (error: unknown) {
       if (error instanceof Error && error.message === "User not found") {
         throw error;
@@ -32,8 +31,7 @@ export default class UserUseCases implements IContractUseCases<User> {
 
   async create(data: Partial<User>): Promise<User> {
     try {
-      const response = await userRepository.save(data);
-      return response;
+      return await userRepository.save(data);
     } catch (error: unknown) {
       throw ErrorHandler.InternalServerError(error);
     }
@@ -54,10 +52,7 @@ export default class UserUseCases implements IContractUseCases<User> {
 
   async delete(id: string): Promise<void> {
     try {
-      const user = await this.getOne(id);
-      if (!user) {
-        throw ErrorHandler.NotFound("User not found");
-      }
+      await this.getOne(id);
       await userRepository.delete(id);
     } catch (error: unknown) {
       if (error instanceof Error && error.message === "User not found") {
