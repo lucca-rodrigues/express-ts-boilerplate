@@ -32,4 +32,34 @@ describe("ErrorHandler", () => {
     expect(error.status).toBe(500);
     expect(error.message).toBe("Internal Server Error");
   });
+
+  it("should create an Unauthorized error", () => {
+    const error = ErrorHandler.Unauthorized("Custom unauthorized message");
+    expect(error.status).toBe(401);
+    expect(error.message).toBe("Custom unauthorized message");
+  });
+
+  it("should create a NotFound error", () => {
+    const error = ErrorHandler.NotFound("Custom not found message");
+    expect(error.status).toBe(404);
+    expect(error.message).toBe("Custom not found message");
+  });
+
+  it("should create a BadRequest error", () => {
+    const error = ErrorHandler.BadRequest("Custom bad request message");
+    expect(error.status).toBe(400);
+    expect(error.message).toBe("Custom bad request message");
+  });
+
+  it("should create an InternalServerError with custom message", () => {
+    const error = ErrorHandler.InternalServerError(new Error("Custom error"));
+    expect(error.status).toBe(500);
+    expect(error.message).toBe("Custom error");
+  });
+
+  it("should create an InternalServerError with default message", () => {
+    const error = ErrorHandler.InternalServerError("Unknown error");
+    expect(error.status).toBe(500);
+    expect(error.message).toBe("Internal Server Error");
+  });
 });

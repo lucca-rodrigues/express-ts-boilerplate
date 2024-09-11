@@ -28,7 +28,11 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: false,
   entities: ["src/modules/**/*.entity.ts"],
-  migrations: ["src/infra/database/migrations/*.ts"],
+  // Excluindo arquivos de teste com .spec.ts
+  migrations: [
+    "src/infra/database/migrations/*.ts",
+    "!src/infra/database/migrations/*.spec.ts",
+  ],
   subscribers: [],
   ...dbSettings[process.env.NODE_ENV ?? "test"],
 });

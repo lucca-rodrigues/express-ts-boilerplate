@@ -8,7 +8,6 @@ export default class UserUseCases implements IContractUseCases<User> {
 
   async getAll(query = {}): Promise<User[]> {
     try {
-      // const queryString = new URLSearchParams(query).toString();
       const response = await userRepository.find();
       return response;
     } catch (error: unknown) {
@@ -16,14 +15,17 @@ export default class UserUseCases implements IContractUseCases<User> {
     }
   }
 
-  async getOne(id: string): Promise<User | void> {
+  async getOne(id: string): Promise<User> {
     try {
       const response = await userRepository.findOneBy({ id });
       if (!response) {
         throw ErrorHandler.NotFound("User not found");
       }
-      return response as User;
+      return response;
     } catch (error: unknown) {
+      if (error instanceof Error && error.message === "User not found") {
+        throw error;
+      }
       throw ErrorHandler.InternalServerError(error);
     }
   }
@@ -37,15 +39,15 @@ export default class UserUseCases implements IContractUseCases<User> {
     }
   }
 
-  async update(id: string, data: Partial<User>): Promise<User | void> {
+  async update(id: string, data: Partial<User>): Promise<User> {
     try {
       const user = await this.getOne(id);
-      if (!user) {
-        throw ErrorHandler.NotFound("User not found");
-      }
       await userRepository.update(id, data);
       return { ...user, ...data };
     } catch (error: unknown) {
+      if (error instanceof Error && error.message === "User not found") {
+        throw error;
+      }
       throw ErrorHandler.InternalServerError(error);
     }
   }
@@ -58,6 +60,9 @@ export default class UserUseCases implements IContractUseCases<User> {
       }
       await userRepository.delete(id);
     } catch (error: unknown) {
+      if (error instanceof Error && error.message === "User not found") {
+        throw error;
+      }
       throw ErrorHandler.InternalServerError(error);
     }
   }

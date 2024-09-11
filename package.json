@@ -12,13 +12,13 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "prepare": "husky",
     "commit": "npm test && git add . && npx git-cz",
-    "test": "npm run migrations:run && jest",
-    "test:watch": "jest --watch",
-    "test:e2e": "jest --config jest.e2e.config.js",
+    "test": "npm run db:reset && npx jest",
+    "test:watch": "npx jest --watch",
     "gen": "plop",
     "migrations:run": "npm run typeorm -- -d src/data-source migration:run",
     "migrations:undo": "npm run typeorm -- -d src/data-source migration:revert",
-    "test:coverage": "npm run migrations:run && jest --coverage"
+    "test:coverage": "npm run migrations:run && npx jest --coverage",
+    "db:reset": "rm -rf src/infra/database/data.sqlite && npm run migrations:run"
   },
   "keywords": [],
   "author": "",
