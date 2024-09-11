@@ -28,7 +28,6 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   logging: false,
   entities: ["src/modules/**/*.entity.ts"],
-  // Excluindo arquivos de teste com .spec.ts
   migrations: [
     "src/infra/database/migrations/*.ts",
     "!src/infra/database/migrations/*.spec.ts",
