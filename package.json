@@ -17,6 +17,7 @@
     "test:e2e": "jest --config jest.e2e.config.js",
     "gen": "plop",
     "migrations:run": "npm run typeorm -- -d src/data-source migration:run",
+    "migrations:undo": "npm run typeorm -- -d src/data-source migration:revert",
     "test:coverage": "npm run migrations:run && jest --coverage"
   },
   "keywords": [],

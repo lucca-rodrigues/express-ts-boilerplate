@@ -1,17 +1,37 @@
-## Setup Commands
+## Prerequisites
 
-```sh
-npx tsc --init
+Before you begin, ensure you have the following tools installed:
 
-## Start Setup typeorm
-npx typeorm init --database sqlite3
+- Node.js (version 21 or higher)
+- Yarn
+- TypeScript
+- TypeORM
+- Plop
+- Faker-js
 
-## Create migrations
-yarn typeorm migration:create src/infra/database/migrations/createUsers
+## Installation
 
-## Run migrations
-yarn typeorm migration:run --d src/data-source
+1. **Install dependencies:**
 
-## Drop Last Table
-yarn typeorm migration:revert --d src/data-source
-```
+   ```sh
+   npm install
+   ```
+
+2. **Insert database credentials in the `.env` using sample `.env.example` file.**
+
+3. **Execute migrations TypeORM:**
+
+   ```sh
+   npm run migrations:run
+   ```
+
+4. **Run the project:**
+   ```sh
+   npm run start:dev
+   ```
+
+## Migrations
+
+### Create Migrations
+
+To create a new migration, run:

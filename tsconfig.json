@@ -1,15 +1,13 @@
 {
   "compilerOptions": {
-    "lib": ["es5", "es6"],
-    "target": "es5",
+    // "lib": ["es5", "es6"],
+    "target": "ES2021",
     "module": "commonjs",
-    // "moduleResolution": "node",
     "outDir": "./build",
     "experimentalDecorators": true,
     "sourceMap": true,
     "types": ["jest", "node", "express"],
     "typeRoots": ["./node_modules/@types", "./src/@types"],
-    "moduleResolution": "nodenext",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
