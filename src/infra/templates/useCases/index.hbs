@@ -1,4 +1,4 @@
-import { {{pascalCase moduleName}} } from "modules/{{moduleName}}/entity/{{moduleName}}.entity";
+import { {{pascalCase moduleName}} } from "./entity/{{moduleName}}.entity";
 import { {{moduleName}}Repository } from "infra/repository";
 import IContractUseCases from "infra/contracts";
 import { ErrorHandler } from "infra/errorHandlers";
@@ -6,57 +6,58 @@ import { ErrorHandler } from "infra/errorHandlers";
 export default class {{pascalCase moduleName}}UseCases implements IContractUseCases<{{pascalCase moduleName}}> {
     constructor() {}
 
-    async getAll(query = {}): Promise<{{pascalCase moduleName}}[]> {
+    async getAll(): Promise<{{pascalCase moduleName}}[]> {
         try {
-            const response = await {{moduleName}}Repository.find();
-            return response;
+            return await {{moduleName}}Repository.find();
         } catch (error: unknown) {
             throw ErrorHandler.InternalServerError(error);
         }
     }
 
-    async getOne(id: string): Promise<{{pascalCase moduleName}} | void> {
+    async getOne(id: string): Promise<{{pascalCase moduleName}}> {
         try {
-            const response = await {{moduleName}}Repository.findOneBy({ id });
-            if (!response) {
+            const {{moduleName}} = await {{moduleName}}Repository.findOneBy({ id });
+            if (!{{moduleName}}) {
                 throw ErrorHandler.NotFound("{{pascalCase moduleName}} not found");
             }
-            return response as {{pascalCase moduleName}};
+            return {{moduleName}};
         } catch (error: unknown) {
+            if (error instanceof Error && error.message === "{{pascalCase moduleName}} not found") {
+                throw error;
+            }
             throw ErrorHandler.InternalServerError(error);
         }
     }
 
     async create(data: Partial<{{pascalCase moduleName}}>): Promise<{{pascalCase moduleName}}> {
         try {
-            const response = await {{moduleName}}Repository.save(data);
-            return response;
+            return await {{moduleName}}Repository.save(data);
         } catch (error: unknown) {
             throw ErrorHandler.InternalServerError(error);
         }
     }
 
-    async update(id: string, data: Partial<{{pascalCase moduleName}}>): Promise<{{pascalCase moduleName}} | void> {
+    async update(id: string, data: Partial<{{pascalCase moduleName}}>): Promise<{{pascalCase moduleName}}> {
         try {
-            const entity = await this.getOne(id);
-            if (!entity) {
-                throw ErrorHandler.NotFound("{{pascalCase moduleName}} not found");
-            }
+            const {{moduleName}} = await this.getOne(id);
             await {{moduleName}}Repository.update(id, data);
-            return { ...entity, ...data };
+            return { ...{{moduleName}}, ...data };
         } catch (error: unknown) {
+            if (error instanceof Error && error.message === "{{pascalCase moduleName}} not found") {
+                throw error;
+            }
             throw ErrorHandler.InternalServerError(error);
         }
     }
 
     async delete(id: string): Promise<void> {
         try {
-            const entity = await this.getOne(id);
-            if (!entity) {
-                throw ErrorHandler.NotFound("{{pascalCase moduleName}} not found");
-            }
+            await this.getOne(id);
             await {{moduleName}}Repository.delete(id);
         } catch (error: unknown) {
+            if (error instanceof Error && error.message === "{{pascalCase moduleName}} not found") {
+                throw error;
+            }
             throw ErrorHandler.InternalServerError(error);
         }
     }
