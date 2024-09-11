@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import UserServices from "./user.service";
 import IContractUseCases from "infra/contracts";
 import { UserDto } from "modules/users/dto/user.dto";
-let faker: any;
+let fakerLib: any;
 
 describe("UserServices", () => {
   let userServices: UserServices;
@@ -12,7 +12,7 @@ describe("UserServices", () => {
   let mockResponse: Partial<Response>;
 
   beforeAll(async () => {
-    faker = await import("@faker-js/faker");
+    fakerLib = await import("@faker-js/faker");
   });
 
   beforeEach(() => {
@@ -35,7 +35,7 @@ describe("UserServices", () => {
 
   it("should get all users", async () => {
     const users = [
-      { id: "generated-uuid", name: faker.faker.person.fullName() },
+      { id: "generated-uuid", name: fakerLib.faker.person.fullName() },
     ];
     mockRequest.query = {};
     mockUserUseCases.getAll = jest.fn().mockResolvedValue(users);
@@ -48,7 +48,7 @@ describe("UserServices", () => {
 
   it("should get one user", async () => {
     const userId = "generated-uuid";
-    const user = { id: userId, name: faker.faker.person.fullName() };
+    const user = { id: userId, name: fakerLib.faker.person.fullName() };
     mockRequest.params = { id: userId };
     mockUserUseCases.getOne = jest.fn().mockResolvedValue(user);
 
@@ -59,7 +59,7 @@ describe("UserServices", () => {
   });
 
   it("should create a user", async () => {
-    const userData: UserDto = { name: faker.faker.person.fullName() };
+    const userData: UserDto = { name: fakerLib.faker.person.fullName() };
     mockRequest.body = userData;
     mockUserUseCases.create = jest
       .fn()
@@ -75,7 +75,7 @@ describe("UserServices", () => {
 
   it("should update a user", async () => {
     const userId = "generated-uuid";
-    const userData: UserDto = { name: faker.faker.person.fullName() };
+    const userData: UserDto = { name: fakerLib.faker.person.fullName() };
     mockRequest.params = { id: userId };
     mockRequest.body = userData;
     mockUserUseCases.update = jest

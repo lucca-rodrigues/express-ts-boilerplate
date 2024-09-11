@@ -2,14 +2,14 @@
 import app from "..";
 import request from "supertest";
 import { AppDataSource } from "../data-source";
-let faker: any;
+let fakerLib: any;
 
 describe("User CRUD E2E", () => {
   let userId: string;
 
   beforeAll(async () => {
     await AppDataSource.initialize();
-    faker = await import("@faker-js/faker");
+    fakerLib = await import("@faker-js/faker");
   });
 
   afterAll(async () => {
@@ -17,7 +17,7 @@ describe("User CRUD E2E", () => {
   });
 
   it("should create a user", async () => {
-    const userName = faker.faker.person.fullName();
+    const userName = fakerLib.faker.person.fullName();
     const response = await request(app)
       .post("/api/users")
       .send({ name: userName });
@@ -44,7 +44,7 @@ describe("User CRUD E2E", () => {
   });
 
   it("should update a user", async () => {
-    const updatedName = faker.faker.person.fullName();
+    const updatedName = fakerLib.faker.person.fullName();
     const response = await request(app)
       .put(`/api/users/${userId}`)
       .send({ name: updatedName });
