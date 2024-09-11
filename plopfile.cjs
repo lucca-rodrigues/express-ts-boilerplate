@@ -1,3 +1,5 @@
+const { exec } = require('child_process');
+
 module.exports = function (plop) {
   plop.setGenerator("module", {
     description: "Criar um novo módulo",
@@ -50,6 +52,20 @@ module.exports = function (plop) {
         path: "src/index.ts",
         pattern: /app\.use\("\/api", userRouter\);/,
         template: `app.use("/api", userRouter);\napp.use("/api/{{kebabCase moduleName}}", {{camelCase moduleName}}Router);`,
+      },
+      (answers) => {
+        const command = `npm run migrations:create --name={{camelCase moduleName}}`;
+        return new Promise((resolve, reject) => {
+          exec(plop.renderString(command, answers), (error, stdout, stderr) => {
+            if (error) {
+              console.error(`Erro ao executar o comando: ${error}`);
+              reject(`Falha ao criar a migração: ${stderr}`);
+            } else {
+              console.log(`Migração criada: ${stdout}`);
+              resolve('Migração criada com sucesso');
+            }
+          });
+        });
       }
     ],
   });
