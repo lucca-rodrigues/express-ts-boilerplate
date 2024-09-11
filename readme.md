@@ -25,7 +25,13 @@ Before you begin, ensure you have the following tools installed:
    npm run migrations:run
    ```
 
-4. **Run the project:**
+4. **Migrations undo TypeORM:**
+
+   ```sh
+   npm run migrations:undo
+   ```
+
+5. **Run the project:**
    ```sh
    npm run start:dev
    ```
@@ -35,3 +41,7 @@ Before you begin, ensure you have the following tools installed:
 ### Create Migrations
 
 To create a new migration, run:
+
+```sh
+npm run migrations:create --name=migrationName
+```
