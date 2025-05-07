@@ -1,71 +1,15 @@
 version: "3.8"
 
 services:
-  # app:
-  #   build: .
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - .:/usr/src/app
-  #     - /usr/src/app/node_modules
-  #   environment:
-  #     - NODE_ENV=development
-  #   command: npm run start
-  #   env_file:
-  #     - .env
-
-  postgres:
-    image: postgres:14-alpine
-    container_name: ebaas_postgres
+  app:
+    build: .
     ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: ebaas_main
+      - "3000:3000"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - ebaas-network
-    restart: unless-stopped
-
-  mysql:
-    image: mysql:8.0
-    container_name: ebaas_mysql
-    ports:
-      - "3306:3306"
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: mysql
-      MYSQL_PASSWORD: mysql
-      MYSQL_DATABASE: ebaas_main
-    volumes:
-      - mysql_data:/var/lib/mysql
-    networks:
-      - ebaas-network
-    restart: unless-stopped
-    command: --default-authentication-plugin=mysql_native_password
-
-  mongodb:
-    image: mongo:latest
-    container_name: ebaas_mongodb
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: mongodb
-      MONGO_INITDB_ROOT_PASSWORD: mongodb
-      MONGO_INITDB_DATABASE: ebaas_main
-    volumes:
-      - mongodb_data:/data/db
-    networks:
-      - ebaas-network
-    restart: unless-stopped
-
-networks:
-  ebaas-network:
-    driver: bridge
-
-volumes:
-  postgres_data:
-  mysql_data:
-  mongodb_data:
+      - NODE_ENV=development
+    command: npm run start
+    env_file:
+      - .env

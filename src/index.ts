@@ -28,6 +28,6 @@ AppDataSource.initialize()
       console.log(`Server running on port ${PORT}`);
     });
   })
-  .catch((error: Error) => console.log(error));
+  .catch((error) => console.log(error));
 
 export default app;

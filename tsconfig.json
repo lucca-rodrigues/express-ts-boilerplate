@@ -12,17 +12,14 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": false,
+    "forceConsistentCasingInFileNames": true,
     "emitDecoratorMetadata": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "*": ["*"],
-      "src/*": ["src/*"],
-      "infra/*": ["src/infra/*"],
-      "modules/*": ["src/modules/*"],
-      "config/*": ["src/config/*"],
-      "@types/*": ["src/@types/*"]
-    },
-    "resolveJsonModule": true
+      "root/*": ["/*"],
+      "infra/*": ["infra/*"],
+      "modules/*": ["modules/*"],
+      "src/*": ["src/*"]
+    }
   }
 }
