@@ -1,29 +1,13 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+// Esta migration foi substituída por uma migration de setup mais completa
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class CreateUsers1725904652345 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.createTable(
-      new Table({
-        name: "users",
-        columns: [
-          {
-            name: "id",
-            type: "uuid",
-            isPrimary: true,
-            isGenerated: true,
-            generationStrategy: "uuid",
-          },
-          {
-            name: "name",
-            type: "varchar",
-            isNullable: false,
-          },
-        ],
-      })
-    );
+    // Migration vazia - substituída pela migration de setup
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("users");
+    // Migration vazia - substituída pela migration de setup
   }
 }

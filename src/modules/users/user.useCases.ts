@@ -39,9 +39,9 @@ export default class UserUseCases implements IContractUseCases<User> {
 
   async update(id: string, data: Partial<User>): Promise<User> {
     try {
-      const user = await this.getOne(id);
+      await this.getOne(id);
       await userRepository.update(id, data);
-      return { ...user, ...data };
+      return await this.getOne(id);
     } catch (error: unknown) {
       if (error instanceof Error && error.message === "User not found") {
         throw error;

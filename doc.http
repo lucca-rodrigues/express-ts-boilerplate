@@ -1,0 +1,251 @@
+@baseUrl = http://localhost:3000/api
+
+### Autenticação ###
+
+# Registrar novo usuário
+POST {{baseUrl}}/auth/signup
+Content-Type: application/json
+
+{
+  "firstName": "João",
+  "lastName": "Silva",
+  "email": "joao@exemplo.com",
+  "password": "senha123"
+}
+
+###
+
+# Login de usuário
+POST {{baseUrl}}/auth/signin
+Content-Type: application/json
+
+{
+  "email": "joao@exemplo.com",
+  "password": "senha123"
+}
+
+###
+
+# Refresh token
+POST {{baseUrl}}/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "seu-refresh-token-aqui"
+}
+
+### Usuários ###
+
+# Listar todos os usuários
+GET {{baseUrl}}/users
+Authorization: Bearer seu-token-aqui
+
+###
+
+# Obter usuário por ID
+GET {{baseUrl}}/users/user-id-aqui
+Authorization: Bearer seu-token-aqui
+
+###
+
+# Criar novo usuário
+POST {{baseUrl}}/users
+Content-Type: application/json
+Authorization: Bearer seu-token-aqui
+
+{
+  "firstName": "Maria",
+  "lastName": "Santos",
+  "email": "maria@exemplo.com",
+  "password": "senha456"
+}
+
+###
+
+# Atualizar usuário
+PUT {{baseUrl}}/users/user-id-aqui
+Content-Type: application/json
+Authorization: Bearer seu-token-aqui
+
+{
+  "firstName": "Maria",
+  "lastName": "Silva Santos",
+  "email": "maria@exemplo.com",
+  "password": "senha789"
+}
+
+###
+
+# Deletar usuário
+DELETE {{baseUrl}}/users/user-id-aqui
+Authorization: Bearer seu-token-aqui
+
+### Workspaces ###
+
+# Listar todos os workspaces
+GET {{baseUrl}}/workspaces
+Authorization: Bearer seu-token-aqui
+
+###
+
+# Obter workspace por ID
+GET {{baseUrl}}/workspaces/workspace-id-aqui
+Authorization: Bearer seu-token-aqui
+
+###
+
+# Criar novo workspace
+POST {{baseUrl}}/workspaces
+Content-Type: application/json
+Authorization: Bearer seu-token-aqui
+
+{
+  "name": "Meu Projeto",
+  "description": "Descrição do meu projeto"
+}
+
+###
+
+# Atualizar workspace
+PUT {{baseUrl}}/workspaces/workspace-id-aqui
+Content-Type: application/json
+Authorization: Bearer seu-token-aqui
+
+{
+  "name": "Meu Projeto Atualizado",
+  "description": "Nova descrição do meu projeto"
+}
+
+###
+
+# Deletar workspace
+DELETE {{baseUrl}}/workspaces/workspace-id-aqui
+Authorization: Bearer seu-token-aqui
+
+### Banco de Dados ###
+
+# Executar SQL
+POST {{baseUrl}}/workspaces/workspace-id-aqui/sql
+Content-Type: application/json
+Authorization: Bearer seu-token-aqui
+# ou
+# X-API-Key: sua-api-key-aqui
+
+{
+  "databaseType": "postgres", // ou "mysql" ou "mongodb"
+  "query": "SELECT * FROM minhas_tabelas WHERE id = 1"
+}
+
+###
+
+# Criar tabela
+POST {{baseUrl}}/workspaces/workspace-id-aqui/tables
+Content-Type: application/json
+Authorization: Bearer seu-token-aqui
+# ou
+# X-API-Key: sua-api-key-aqui
+
+{
+  "databaseType": "postgres", // ou "mysql" ou "mongodb"
+  "name": "usuarios",
+  "columns": [
+    {
+      "name": "id",
+      "type": "uuid",
+      "primary": true,
+      "nullable": false
+    },
+    {
+      "name": "nome",
+      "type": "string",
+      "nullable": false
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "unique": true,
+      "nullable": false
+    },
+    {
+      "name": "idade",
+      "type": "number",
+      "default": "18",
+      "nullable": true
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "default": "CURRENT_TIMESTAMP",
+      "nullable": false
+    }
+  ]
+}
+
+### API Keys ###
+
+# Listar API Keys
+GET {{baseUrl}}/workspaces/workspace-id-aqui/api-keys
+Authorization: Bearer seu-token-aqui
+
+###
+
+# Criar API Key
+POST {{baseUrl}}/workspaces/workspace-id-aqui/api-keys
+Content-Type: application/json
+Authorization: Bearer seu-token-aqui
+
+{
+  "name": "Minha API Key",
+  "expiresAt": "2023-12-31T23:59:59Z" // Opcional
+}
+
+###
+
+# Revogar API Key
+DELETE {{baseUrl}}/workspaces/workspace-id-aqui/api-keys/api-key-id-aqui
+Authorization: Bearer seu-token-aqui
+
+### Configurações de Banco de Dados ###
+
+# Listar configurações de banco de dados
+GET {{baseUrl}}/workspaces/workspace-id-aqui/database-configs
+Authorization: Bearer seu-token-aqui
+
+###
+
+# Adicionar configuração de banco de dados
+POST {{baseUrl}}/workspaces/workspace-id-aqui/database-configs
+Content-Type: application/json
+Authorization: Bearer seu-token-aqui
+
+{
+  "databaseType": "postgres", // ou "mysql" ou "mongodb"
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgres",
+  "password": "postgres",
+  "database": "minha_database",
+  "isActive": true
+}
+
+###
+
+# Atualizar configuração de banco de dados
+PUT {{baseUrl}}/workspaces/workspace-id-aqui/database-configs/config-id-aqui
+Content-Type: application/json
+Authorization: Bearer seu-token-aqui
+
+{
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgres",
+  "password": "novaSenha",
+  "database": "minha_database",
+  "isActive": true
+}
+
+###
+
+# Remover configuração de banco de dados
+DELETE {{baseUrl}}/workspaces/workspace-id-aqui/database-configs/config-id-aqui
+Authorization: Bearer seu-token-aqui 
