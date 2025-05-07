@@ -18,12 +18,10 @@
     "paths": {
       "*": ["*"],
       "src/*": ["src/*"],
-      "infra": ["src/infra"],
       "infra/*": ["src/infra/*"],
       "modules/*": ["src/modules/*"],
       "config/*": ["src/config/*"],
-      "@types/*": ["src/@types/*"],
-      "data-source": ["src/data-source"]
+      "@types/*": ["src/@types/*"]
     },
     "resolveJsonModule": true
   }
