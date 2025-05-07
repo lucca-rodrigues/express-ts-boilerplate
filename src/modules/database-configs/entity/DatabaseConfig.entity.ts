@@ -26,7 +26,7 @@ export class DatabaseConfig {
 
   @Column({
     name: "database_type",
-    type: "enum",
+    type: process.env.NODE_ENV === "test" ? "varchar" : "enum",
     enum: DatabaseType,
     default: DatabaseType.POSTGRES,
   })
